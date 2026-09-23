@@ -1,1 +1,67 @@
-<p>home works!</p>
+<div class="ford-container">
+  <!-- Topbar -->
+  <header class="navbar">
+    <div class="logo">FORD <span>Connect & Privacy</span></div>
+    <div class="user-badge">Olá, Cliente Ford</div>
+  </header>
+
+  <!-- Banner de Consentimento LGPD -->
+  <div class="lgpd-banner" *ngIf="showConsentBanner">
+    <p><strong>🔒 Privacidade de Dados (LGPD):</strong> Utilizamos dados do seu veículo para melhorar a sua experiência. Personalize as suas preferências:</p>
+    <div class="checkbox-group">
+      <label><input type="checkbox" [(ngModel)]="privacySettings.gpsTracking"> GPS & Localização</label>
+      <label><input type="checkbox" [(ngModel)]="privacySettings.telemetrySharing"> Telemetria do Motor</label>
+      <label><input type="checkbox" [(ngModel)]="privacySettings.marketingEmails"> Ofertas e Serviços</label>
+    </div>
+    <button class="btn-primary" (click)="saveConsent()">Guardar Preferências</button>
+  </div>
+
+  <div class="main-content">
+    <!-- Card do Veículo -->
+    <section class="card vehicle-card">
+      <h2>{{ vehicle.model }}</h2>
+      <div class="metrics-grid">
+        <div class="metric-box">
+          <span class="label">Combustível</span>
+          <span class="value">{{ vehicle.fuelLevel }}%</span>
+        </div>
+        <div class="metric-box">
+          <span class="label">Pressão dos Pneus</span>
+          <span class="value">{{ vehicle.tirePressure }}</span>
+        </div>
+        <div class="metric-box">
+          <span class="label">Quilometragem</span>
+          <span class="value">{{ vehicle.odometer }} km</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulário de Agendamento -->
+    <section class="card form-card">
+      <h3>Agendar Serviço na Concessionária</h3>
+      <form [formGroup]="bookingForm" (ngSubmit)="onBookingSubmit()">
+        <input type="text" formControlName="name" placeholder="Nome Completo">
+        <input type="email" formControlName="email" placeholder="E-mail">
+        <input type="text" formControlName="cpf" placeholder="CPF (apenas números, 11 dígitos)">
+        <select formControlName="serviceType">
+          <option value="Revisão Periódica">Revisão Periódica</option>
+          <option value="Troca de Óleo">Troca de Óleo</option>
+          <option value="Alinhamento e Balanceamento">Alinhamento e Balanceamento</option>
+        </select>
+        <input type="date" formControlName="date">
+        <button type="submit" class="btn-primary" [disabled]="bookingForm.invalid">Agendar</button>
+      </form>
+      <p class="success-msg" *ngIf="bookingSuccess">✓ Agendamento efetuado com sucesso!</p>
+    </section>
+
+    <!-- Central de Privacidade LGPD -->
+    <section class="card privacy-card">
+      <h3>Central de Privacidade LGPD</h3>
+      <p>Exercite os seus direitos de titular dos dados segundo a legislação vigente.</p>
+      <div class="actions-group">
+        <button class="btn-secondary" (click)="downloadUserData()">📥 Exportar os Meus Dados (JSON)</button>
+        <button class="btn-danger" (click)="deleteUserData()">🗑️ Solicitar Eliminação dos Meus Dados</button>
+      </div>
+    </section>
+  </div>
+</div>
