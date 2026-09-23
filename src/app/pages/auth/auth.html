@@ -2,7 +2,7 @@
   <div class="auth-container">
     <h2>{{isLoginMode ? 'Login' : 'Cadastro'}}</h2>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" (ngSubmit)="OnSubmit()">
 
       <div *ngIf="!isLoginMode">
         <label for="name">Nome :</label>
