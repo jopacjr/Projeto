@@ -2,18 +2,18 @@
   <div class="auth-container">
     <h2>{{isLoginMode ? 'Login' : 'Cadastro'}}</h2>
 
-    <form [formGroup]="form" (ngSubmit)="OnSubmit()">
+    <form (submit)="OnSubmit()">
 
       <div *ngIf="!isLoginMode">
         <label for="name">Nome :</label>
-        <input id="name" formControlName="name">
+        <input id="name" name="name">
       </div>
 
       <label for="email">Email :</label>
-      <input  id="email" type="email" formControlName="email">
+      <input id="email" name="email" type="email">
 
       <label for="password">Senha :</label>
-      <input id="password" type="password"  formControlName="password" [placeholder]="isLoginMode ? '' : 'Informe pelo menos 6 digitos'">
+      <input id="password" name="password" type="password" [placeholder]="isLoginMode ? '' : 'Informe pelo menos 6 digitos'">
 
       <button type="submit">{{isLoginMode ? 'Entrar' : 'Cadastrar'}}</button>
 
@@ -21,7 +21,7 @@
 
     <p>
       {{isLoginMode ? 'Não tem conta?' : 'Já tem conta?'}}
-      <button (click)="toggleMode()">{{isLoginMode ? 'Criar conta' : 'Fazer login'}}</button>
+      <button type="button" (click)="toggleMode()">{{isLoginMode ? 'Criar conta' : 'Fazer login'}}</button>
     </p>
   </div>
 </body>
